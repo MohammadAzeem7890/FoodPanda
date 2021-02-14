@@ -4,8 +4,9 @@ class PrimaryTextField extends StatelessWidget {
 
   TextEditingController controller = new TextEditingController();
   String placeholder;
+  int maxLines;
 
-  PrimaryTextField({this.placeholder, this.controller});
+  PrimaryTextField({this.placeholder, this.controller, this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +16,13 @@ class PrimaryTextField extends StatelessWidget {
           height: 45,
           width: MediaQuery.of(context).size.width,
           child: TextField(
+            maxLines: maxLines,
             decoration: new InputDecoration(
               contentPadding: const EdgeInsets.only(top: 8, left: 20),
               hintText: placeholder,
                 hintStyle: TextStyle(
                   color: Colors.black54,
+                  fontSize: 14
                 ),
                 enabledBorder: new OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),

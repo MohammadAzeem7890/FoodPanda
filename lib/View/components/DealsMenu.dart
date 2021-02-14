@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/CheckOutForm.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
 
-class DealsMenu extends StatelessWidget {
+class DealsMenu extends StatefulWidget {
+  @override
+  _DealsMenuState createState() => _DealsMenuState();
+}
+
+class _DealsMenuState extends State<DealsMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,17 +24,13 @@ class DealsMenu extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CheckOutForm()));
                       },
                       child: ItemCard(
-                        imageName: "assets/images/Splash logo.png",
+                        imageName: "assets/images/Splash logo.png" == null ? CircularProgressIndicator(): 'assets/images/Splash logo.png',
                         fit: BoxFit.scaleDown,
                         cardTitle: "Chicken Cheese Roll",
                         cardDescription:
-                            "mouth watering chicken cheese roll with special sauce",
+                        "mouth watering chicken cheese roll with special sauce",
                         oldPrice: 400,
                         newPrice: 300,
                       ),
