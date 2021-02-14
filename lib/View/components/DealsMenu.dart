@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda/View/Design/CheckOutForm.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
 import 'package:foodpanda/View/components/primaryTextField.dart';
 
@@ -19,7 +20,7 @@ class DealsMenu extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PrimaryTextField()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutForm()));
                       },
                       child: ItemCard(
                         imageName: "assets/images/Splash logo.png",
