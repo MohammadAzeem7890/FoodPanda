@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/View/components/AddToCart.dart';
 import 'package:foodpanda/View/components/PrimaryLabel.dart';
 import 'package:foodpanda/View/components/appBar.dart';
 import 'package:foodpanda/View/components/primaryTextField.dart';
@@ -87,10 +88,11 @@ class _CheckOutFormState extends State<CheckOutForm> {
             PrimaryTextField(
               controller: otherInstructions,
               placeholder:
-                  "Please Enter Order Instructions/                          "
+                  "Please Enter Order Instructions/\n"
                   "Note to rider",
               maxLines: 2,
             ),
+            AddToCart(),
           ],
         ),
       ),
