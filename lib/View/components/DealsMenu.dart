@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/CheckOutForm.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
-import 'package:foodpanda/View/components/primaryTextField.dart';
 
 class DealsMenu extends StatelessWidget {
   @override
@@ -14,19 +13,23 @@ class DealsMenu extends StatelessWidget {
             child: Container(
               child: GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width/390,
+                childAspectRatio: MediaQuery.of(context).size.width / 390,
                 children: List.generate(12, (index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutForm()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CheckOutForm()));
                       },
                       child: ItemCard(
                         imageName: "assets/images/Splash logo.png",
                         fit: BoxFit.scaleDown,
                         cardTitle: "Chicken Cheese Roll",
-                        cardDescription: "mouth watering chicken cheese roll with special sauce",
+                        cardDescription:
+                            "mouth watering chicken cheese roll with special sauce",
                         oldPrice: 400,
                         newPrice: 300,
                       ),
