@@ -24,9 +24,10 @@ class _DealsMenuState extends State<DealsMenu> {
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
                       onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutForm()));
                       },
                       child: ItemCard(
-                        imageName: "assets/images/Splash logo.png" == null ? CircularProgressIndicator(): 'assets/images/Splash logo.png',
+                        imageName: "assets/images/Splashlogo.png",
                         fit: BoxFit.scaleDown,
                         cardTitle: "Chicken Cheese Roll",
                         cardDescription:

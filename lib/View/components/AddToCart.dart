@@ -1,20 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda/View/components/Heading.dart';
 import 'package:foodpanda/View/components/PrimaryLabel.dart';
-
-// void main() => runApp(MaterialApp(
-//       home: AddToCart(),
-//     ));
+import 'package:foodpanda/View/components/primaryTextField.dart';
 
 class AddToCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: PrimaryLabel(label: "Cart",),
+              padding: const EdgeInsets.symmetric(vertical: 13),
+              child: Heading(heading: "Cart",),
             ),
             Divider(
               height: 5,
@@ -58,7 +58,7 @@ class AddToCart extends StatelessWidget {
                         ),
                         Text("1"),
                         Text(" "),
-                        Text("350"),
+                        Text("Rs.\n350"),
                       ],
                     ),
                   );
@@ -71,7 +71,67 @@ class AddToCart extends StatelessWidget {
                   );
                 },
               ),
-            )
+            ),
+            Divider(
+              height: 5,
+              color: Colors.black26,
+              thickness: 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 60),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: Text("Subtotal"),
+                    ),
+                  ),
+                  Text("Rs.\n 2453"),
+                ],
+              ),
+            ),
+            Divider(
+              height: 5,
+              color: Colors.black26,
+              thickness: 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 60),
+                    child: Text("Gst(16%)".toUpperCase()),
+                  ),
+                  Text("Rs.\n350"),
+                ],
+              ),
+            ),
+            Divider(
+              height: 5,
+              color: Colors.black26,
+              thickness: 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Text("Delivery Chareges"),
+                  ),
+                  Text("Rs.\n350"),
+                ],
+              ),
+            ),
+            Container(
+              height: 50,
+            ),
           ],
         ),
     );
