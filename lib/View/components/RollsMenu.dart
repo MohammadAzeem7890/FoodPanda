@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/CheckOutForm.dart';
+import 'package:foodpanda/View/Design/CheckOutScreen.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
 import 'package:foodpanda/View/components/primaryTextField.dart';
+
+import 'BottomSheet.dart';
 
 class RollsMenu extends StatefulWidget {
   @override
@@ -26,7 +29,7 @@ class _RollsMenuState extends State<RollsMenu> {
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutForm()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckOutScreen()));
                           },
                           child: ItemCard(
                             imageName: 'assets/images/Item.png',
@@ -40,7 +43,8 @@ class _RollsMenuState extends State<RollsMenu> {
                   })
               ),
             ),
-          )
+          ),
+          PrimaryBottomSheet(),
         ],
       ),
     );

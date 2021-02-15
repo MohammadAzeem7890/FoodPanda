@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/HomePage.dart';
 import 'package:foodpanda/View/components/AddToCart.dart';
+import 'package:foodpanda/View/components/BottomSheet.dart';
 import 'package:foodpanda/View/components/Heading.dart';
 import 'package:foodpanda/View/components/OrderButton.dart';
 import 'package:foodpanda/View/components/PrimaryButton.dart';
@@ -38,19 +40,20 @@ class _CheckOutFormState extends State<CheckOutForm> {
             bottom: 100,
             right: 10,
             child: FloatingActionButton(
-              backgroundColor: Colors.blue[600],
-                child: Icon(Icons.add_shopping_cart_rounded, color: Colors.white,),
-                onPressed: (){
-
-                }
-            ),
+                backgroundColor: Colors.blue[600],
+                child: Icon(
+                  Icons.add_shopping_cart_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
           ),
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
                   child: Heading(
                     heading: "Checkout Form",
                   ),
@@ -110,8 +113,8 @@ class _CheckOutFormState extends State<CheckOutForm> {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       child: Heading(
                         heading: "Coupon",
                       ),
@@ -123,7 +126,10 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     children: [
                       Container(
                         height: 46,
-                        width: MediaQuery.of(context).size.width - 120,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 120,
                         child: TextField(
                           decoration: new InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(

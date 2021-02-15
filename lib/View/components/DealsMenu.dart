@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/CheckOutForm.dart';
+import 'package:foodpanda/View/Design/CheckOutScreen.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
+
+import 'BottomSheet.dart';
 
 class DealsMenu extends StatefulWidget {
   @override
@@ -18,13 +21,13 @@ class _DealsMenuState extends State<DealsMenu> {
             child: Container(
               child: GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width / 390,
+                childAspectRatio: MediaQuery.of(context).size.width / 400,
                 children: List.generate(12, (index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOutForm()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckOutScreen()));
                       },
                       child: ItemCard(
                         imageName: "assets/images/Splashlogo.png",
@@ -40,7 +43,8 @@ class _DealsMenuState extends State<DealsMenu> {
                 }),
               ),
             ),
-          )
+          ),
+          PrimaryBottomSheet(),
         ],
       ),
     );
