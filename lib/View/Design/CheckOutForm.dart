@@ -29,6 +29,7 @@ class _CheckOutFormState extends State<CheckOutForm> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
@@ -126,10 +127,11 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     children: [
                       Container(
                         height: 46,
-                        width: MediaQuery
+                        width: orientation == Orientation.portrait ? MediaQuery
                             .of(context)
                             .size
-                            .width - 120,
+                            .width - 120:
+                            MediaQuery.of(context).size.width - 160,
                         child: TextField(
                           decoration: new InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(

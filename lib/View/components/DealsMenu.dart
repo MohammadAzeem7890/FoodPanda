@@ -14,14 +14,16 @@ class DealsMenu extends StatefulWidget {
 class _DealsMenuState extends State<DealsMenu> {
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       body: Column(
         children: [
           Expanded(
             child: Container(
               child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width / 400,
+                crossAxisCount: orientation == Orientation.landscape? 3: 2,
+                childAspectRatio: orientation == Orientation.portrait? MediaQuery.of(context).size.width / 400:
+                    MediaQuery.of(context).size.width/730,
                 children: List.generate(12, (index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,

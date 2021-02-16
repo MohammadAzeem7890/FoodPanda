@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -9,9 +10,11 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       height: 46,
-      width: MediaQuery.of(context).size.width-270,
+      width: orientation == Orientation.portrait? MediaQuery.of(context).size.width-270:
+      MediaQuery.of(context).size.width - 600,
       child: RaisedButton(
         color: Colors.blue,
         onPressed: onPressed,
