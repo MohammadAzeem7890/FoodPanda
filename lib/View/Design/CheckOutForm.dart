@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/HomePage.dart';
+import 'package:foodpanda/View/Design/UpdateDealSheet.dart';
 import 'package:foodpanda/View/components/AddToCart.dart';
 import 'package:foodpanda/View/components/BottomSheet.dart';
 import 'package:foodpanda/View/components/Heading.dart';
@@ -162,7 +163,13 @@ class _CheckOutFormState extends State<CheckOutForm> {
                   child: OrderButton(
                     title: "Confirm Order",
                     title1: "Total: Rs. 0000",
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        barrierDismissible: false,
+                          context: context, builder: (context){
+                        return UpdateDealSheet();
+                      });
+                    },
                   ),
                 ),
               ],
@@ -172,4 +179,6 @@ class _CheckOutFormState extends State<CheckOutForm> {
       ),
     );
   }
+
 }
+
