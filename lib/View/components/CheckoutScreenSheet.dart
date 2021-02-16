@@ -11,106 +11,152 @@ class CheckoutScreenSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
-    return SingleChildScrollView(
-      child: Card(
-        elevation: 9,
-        child: Container(
-          height: height,
-          width: MediaQuery.of(context).size.width,
-          decoration: new BoxDecoration(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(5),
-                topLeft: Radius.circular(5)),
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    PrimaryLabel(label: "Delivery Area"),
-                     orientation == Orientation.portrait ? Text("Akhtar Colony (min:500)", style: TextStyle(
-                      fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline, decorationStyle: TextDecorationStyle.solid),):
-                     Padding(
-                       padding: const EdgeInsets.only(right: 10),
-                       child: Text("Akhtar Colony (min:500)", style: TextStyle(
-                           fontSize: 15,
-                           fontWeight: FontWeight.bold,
-                           decoration: TextDecoration.underline, decorationStyle: TextDecorationStyle.solid),),
-                     )
-                  ],
+    return orientation == Orientation.portrait
+        ? Card(
+            elevation: 9,
+            child: Container(
+              height: height,
+              width: MediaQuery.of(context).size.width,
+              decoration: new BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(5), topLeft: Radius.circular(5)),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: deliveryArea(orientation),
+                  ),
+                  totalBill("subtotal", "Rs.1024"),
+                  totalBill("GST(16%)".toUpperCase(), "Rs.350"),
+                  totalBill("Delivery Charges", "Rs.50"),
+                  totalIncludingGst(),
+                  checkOutButton(context),
+                ],
+              ),
+            ),
+          )
+        : SingleChildScrollView(
+            child: Card(
+              elevation: 9,
+              child: Container(
+                height: height,
+                width: MediaQuery.of(context).size.width,
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(5),
+                      topLeft: Radius.circular(5)),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  PrimaryLabel(label: "subtotal"),
-                  PrimaryLabel(label: "Rs.1024"),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 60),
-                    child: PrimaryLabel(label: "Gst(16%)".toUpperCase()),
-                  ),
-                  PrimaryLabel(label: "Rs.350"),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 60),
-                    child: PrimaryLabel(label: "Delivery Charges"),
-                  ),
-                  PrimaryLabel(label: "Rs.350"),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: RichText(
-                        text: TextSpan(
-                            text: "Total", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-                            children: [
-                              TextSpan(
-                                text: "(Incl. GST)", style: TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
-                              )
-                            ]
-                        ),
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: deliveryArea(orientation),
                     ),
-                    PrimaryLabel(label: "Rs.0000",),
+                    totalBill("subtotal", "Rs.1024"),
+                    totalBill("GST(16%)".toUpperCase(), "Rs.350"),
+                    totalBill("Delivery Charges", "Rs.50"),
+                    totalIncludingGst(),
+                    checkOutButton(context),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                child: Container(
-                  height: 50,
-                    child: RaisedButton(
-                      color:  Colors.blue,
-                      onPressed: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckOutForm()));
-                      },
-                      child: Center(child: Text("Proceed to Checkout",style: TextStyle(color: Colors.white,
-                          fontSize: 16, fontWeight: FontWeight.bold),)),
-                    ),
-                )
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 
+Widget deliveryArea(orientation) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      PrimaryLabel(label: "Delivery Area"),
+      orientation == Orientation.portrait
+          ? Text(
+              "Akhtar Colony (min:500)",
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.solid),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Text(
+                "Akhtar Colony (min:500)",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.solid),
+              ),
+            )
+    ],
+  );
+}
+
+Widget totalBill(label, value) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 60),
+        child: PrimaryLabel(label: label),
+      ),
+      PrimaryLabel(label: value),
+    ],
+  );
+}
+
+Widget totalIncludingGst() {
+  return Padding(
+    padding: const EdgeInsets.only(top: 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: RichText(
+            text: TextSpan(
+                text: "Total",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                children: [
+                  TextSpan(
+                    text: "(Incl. GST)",
+                    style:
+                        TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
+                  )
+                ]),
+          ),
+        ),
+        PrimaryLabel(
+          label: "Rs.0000",
+        ),
+      ],
+    ),
+  );
+}
+
+Widget checkOutButton(context) {
+  return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      child: Container(
+        height: 50,
+        child: RaisedButton(
+          color: Colors.blue,
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => CheckOutForm()));
+          },
+          child: Center(
+              child: Text(
+            "Proceed to Checkout",
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          )),
+        ),
+      ));
+}
