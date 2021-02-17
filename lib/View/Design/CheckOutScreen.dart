@@ -8,6 +8,14 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
+
+  double subtotalPrice = 0;
+  double gstPrice = 0;
+  double deliveryCharges = 30;
+  double totalChargesIncGst = 0;
+  double itemPrice = 253;
+  double itemCount = 0;
+
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
@@ -43,7 +51,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Container(
-                              width: 80,
+                              width: MediaQuery.of(context).size.width - 230,
                               height: 47,
                               child: Row(
                                 mainAxisAlignment:
@@ -51,25 +59,45 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15.0),
-                                    child: Icon(
-                                      Icons.maximize_sharp,
-                                      color: Colors.black,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.maximize_sharp,
+                                        color: Colors.black,
+                                      ),
+                                      onPressed: (){
+                                        setState(() {
+                                          subtotalPrice = subtotalPrice == 0 ? 0: subtotalPrice - itemPrice;
+                                          gstPrice = subtotalPrice == 0? 0: subtotalPrice - (16/100);
+                                          itemCount = itemCount == 0 ? 0 : itemCount - 1;
+                                          totalChargesIncGst = subtotalPrice + gstPrice + deliveryCharges;
+                                        });
+                                      },
                                     ),
                                   ),
                                   Text(
-                                    "1",
+                                    itemCount.toString(),
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 20),
                                   ),
-                                  Icon(
-                                    Icons.add,
-                                    color: Colors.black,
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: (){
+                                      setState(() {
+                                        subtotalPrice = subtotalPrice + itemPrice;
+                                        gstPrice = subtotalPrice - (16/100);
+                                        itemCount = itemCount + 1;
+                                        totalChargesIncGst = subtotalPrice + gstPrice + deliveryCharges;
+                                      });
+                                    },
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          Text("Rs. 350"),
+                          Text("Rs."+ (itemPrice).toString()),
                         ],
                       ),
                     );
@@ -84,7 +112,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   itemCount: 20),
             ),
           ),
-          Expanded(child: CheckoutScreenSheet(height: checkoutHeight,)),
+          Expanded(child: CheckoutScreenSheet(
+            subtotal: (subtotalPrice),
+            gst: gstPrice,
+            deliveryCharges: deliveryCharges,
+            totalIncGst: totalChargesIncGst,
+            height: checkoutHeight,)),
         ],
       ):
           Row(
@@ -105,7 +138,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width - 660,
+                                  width: MediaQuery.of(context).size.width - 600,
                                   height: MediaQuery.of(context).size.height - 310,
                                   child: Row(
                                     mainAxisAlignment:
@@ -113,25 +146,44 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 15.0),
-                                        child: Icon(
-                                          Icons.maximize_sharp,
+                                        child: IconButton(
+                                          icon: Icon(Icons.maximize_sharp),
                                           color: Colors.black,
+                                          onPressed: (){
+                                            setState(() {
+                                              subtotalPrice = subtotalPrice == 0 ? 0: subtotalPrice - itemPrice;
+                                              itemCount = itemCount == 0 ? 0 : itemCount - 1;
+                                              gstPrice = subtotalPrice == 0? 0: subtotalPrice - (16/100);
+                                              totalChargesIncGst = subtotalPrice + gstPrice + deliveryCharges;
+                                            });
+                                          },
                                         ),
                                       ),
                                       Text(
-                                        "1",
+                                        itemCount.toString(),
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 20),
                                       ),
-                                      Icon(
-                                        Icons.add,
-                                        color: Colors.black,
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: Colors.black,
+                                        ),
+                                        onPressed: (){
+                                          setState(() {
+                                            subtotalPrice = subtotalPrice + itemPrice;
+                                            print(subtotalPrice);
+                                            gstPrice = subtotalPrice - (16/100);
+                                            itemCount = itemCount + 1;
+                                            totalChargesIncGst = subtotalPrice + gstPrice + deliveryCharges;
+                                          });
+                                        },
                                       )
                                     ],
                                   ),
                                 ),
                               ),
-                              Text("Rs. 350"),
+                              Text("Rs. $itemPrice".toString()),
                             ],
                           ),
                         );
@@ -147,7 +199,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
               ),
               Expanded(
-                child: CheckoutScreenSheet(height: MediaQuery.of(context).size.height,
+                child: CheckoutScreenSheet(
+                  subtotal: subtotalPrice,
+                  gst: gstPrice,
+                  deliveryCharges: deliveryCharges,
+                  totalIncGst: totalChargesIncGst,
+                  height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width - 100,),
               ),
             ],

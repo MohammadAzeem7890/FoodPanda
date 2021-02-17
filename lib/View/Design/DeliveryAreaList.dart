@@ -8,6 +8,22 @@ class DeliveryAreaList extends StatefulWidget {
 
 class _DeliveryAreaListState extends State<DeliveryAreaList> {
 
+  var selectedArea;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      selectedArea = 0;
+    });
+  }
+
+  setSelectedArea(val){
+    setState(() {
+      selectedArea = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double headerHeight = 45;
@@ -24,7 +40,19 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
                       height: headerHeight,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: radioItems("Please Select Delivery Area"),
+                      child: ButtonBar(
+                        alignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Please Select Delivery Area"),
+                          Radio(groupValue: 1, value: selectedArea, onChanged: (val){
+                            if(selectedArea != 0){
+                              setState(() {
+                                selectedArea = val;
+                              });
+                            }
+                          },)
+                        ],
+                      ),
                     ),
                     ),
                     Divider(height: 1, thickness: 1, color: Colors.black45,),
@@ -38,7 +66,7 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
                             itemBuilder: (context, index){
                               return Container(
                                 height: 50,
-                                child: radioItems("Abysenia Lines"),
+                                child: radioItems("Abysenia Lines", selectedArea, index),
                               );
                             },
                             separatorBuilder: (context, index){
@@ -58,20 +86,20 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
       ),
     );
   }
+   radioItems(itemName, groupValue, index){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ButtonBar(
+        alignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(itemName),
+          Radio(groupValue: groupValue, value: index, onChanged: (val){
+            setSelectedArea(val);
+          },)
+        ],
+      ),
+    );
+  }
 }
 
 
-Widget radioItems(itemName){
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: ButtonBar(
-      alignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(itemName),
-        Radio(groupValue: 1, value: 1, onChanged: (val){
-          val = 1;
-        },)
-      ],
-    ),
-  );
-}

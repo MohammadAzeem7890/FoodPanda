@@ -5,9 +5,15 @@ import 'package:foodpanda/View/components/OrderButton.dart';
 import 'PrimaryLabel.dart';
 
 class CheckoutScreenSheet extends StatelessWidget {
+
+  double subtotal;
+  double gst;
+  double deliveryCharges;
+  double totalIncGst;
+
   double height;
   double width;
-  CheckoutScreenSheet({this.height, this.width});
+  CheckoutScreenSheet({this.height, this.width, this.subtotal, this.gst, this.deliveryCharges, this.totalIncGst});
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
@@ -27,10 +33,10 @@ class CheckoutScreenSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     child: deliveryArea(orientation),
                   ),
-                  totalBill("subtotal", "Rs.1024"),
-                  totalBill("GST(16%)".toUpperCase(), "Rs.350"),
-                  totalBill("Delivery Charges", "Rs.50"),
-                  totalIncludingGst(),
+                  totalBill("subtotal", subtotal.toString()),
+                  totalBill("GST(16%)".toUpperCase(), gst.toString()),
+                  totalBill("Delivery Charges", deliveryCharges.toString()),
+                  totalIncludingGst(totalIncGst),
                   checkOutButton(context),
                 ],
               ),
@@ -53,10 +59,10 @@ class CheckoutScreenSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: deliveryArea(orientation),
                     ),
-                    totalBill("subtotal", "Rs.1024"),
-                    totalBill("GST(16%)".toUpperCase(), "Rs.350"),
-                    totalBill("Delivery Charges", "Rs.50"),
-                    totalIncludingGst(),
+                    totalBill("subtotal", subtotal.toString()),
+                    totalBill("GST(16%)".toUpperCase(), gst.toString()),
+                    totalBill("Delivery Charges", deliveryCharges.toString()),
+                    totalIncludingGst(totalIncGst),
                     checkOutButton(context),
                   ],
                 ),
@@ -108,7 +114,7 @@ Widget totalBill(label, value) {
   );
 }
 
-Widget totalIncludingGst() {
+Widget totalIncludingGst(double totalIncGst) {
   return Padding(
     padding: const EdgeInsets.only(top: 20),
     child: Row(
@@ -133,7 +139,7 @@ Widget totalIncludingGst() {
           ),
         ),
         PrimaryLabel(
-          label: "Rs.0000",
+          label: totalIncGst.toString(),
         ),
       ],
     ),

@@ -5,8 +5,9 @@ class PrimaryTextField extends StatelessWidget {
   TextEditingController controller = new TextEditingController();
   String placeholder;
   int maxLines;
+  var validator;
 
-  PrimaryTextField({this.placeholder, this.controller, this.maxLines});
+  PrimaryTextField({this.placeholder, this.controller, this.maxLines, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class PrimaryTextField extends StatelessWidget {
         child: Container(
           height: 45,
           width: MediaQuery.of(context).size.width,
-          child: TextField(
+          child: TextFormField(
+            validator: validator,
             maxLines: maxLines,
             decoration: new InputDecoration(
               contentPadding: const EdgeInsets.only(top: 8, left: 20),
