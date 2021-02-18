@@ -1,14 +1,14 @@
+import 'package:foodpanda/View/components/DeliveryZoneDropdown.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:flutter/material.dart';
-
 import 'package:foodpanda/View/Design/UpdateDealSheet.dart';
 import 'package:foodpanda/View/components/AddToCart.dart';
-
 import 'package:foodpanda/View/components/Heading.dart';
 import 'package:foodpanda/View/components/OrderButton.dart';
 import 'package:foodpanda/View/components/PrimaryButton.dart';
 import 'package:foodpanda/View/components/PrimaryLabel.dart';
 import 'package:foodpanda/View/components/appBar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:foodpanda/View/components/primaryTextField.dart';
 
 class CheckOutForm extends StatefulWidget {
@@ -23,7 +23,6 @@ class _CheckOutFormState extends State<CheckOutForm> {
   TextEditingController mobileNumber = new TextEditingController();
   TextEditingController address = new TextEditingController();
   TextEditingController otherInstructions = new TextEditingController();
-  TextEditingController area = new TextEditingController();
   TextEditingController couponCode = new TextEditingController();
 
   Color btnColor = new Color(0xff303BD8);
@@ -123,10 +122,7 @@ class _CheckOutFormState extends State<CheckOutForm> {
                   PrimaryLabel(
                     label: "Area",
                   ),
-                  PrimaryTextField(
-                    controller: area,
-                    placeholder: "Please Select Delivery Area",
-                  ),
+                  DeliveryZoneDropdown(),
                   PrimaryLabel(
                     label: "Address",
                   ),
@@ -197,7 +193,14 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     child: OrderButton(
                       title: "Confirm Order",
                       title1: "Total: Rs. 0000",
-                      onPressed: () {
+                      onPressed: () async {
+                        SharedPreferences pref = await SharedPreferences.getInstance();
+                        pref.setString("firstName", firstName.text);
+                        pref.setString("lastName", lastName.text);
+                        pref.setString("email", email.text);
+                        pref.setString("mobileNumber", mobileNumber.text);
+                        pref.setString("address", address.text);
+                        pref.setString("otherInstructions", otherInstructions.text);
                         showDialog(
                             barrierDismissible: false,
                             context: context,

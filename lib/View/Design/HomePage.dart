@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/Controller/Network.dart';
 import 'package:foodpanda/View/components/DealsMenu.dart';
 import 'package:foodpanda/View/components/RollsMenu.dart';
 import 'package:foodpanda/View/components/appBar.dart';
@@ -9,6 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Network.getProducts();
+  }
 
   final title = [
     "Rolls",
@@ -55,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                     labelColor: Colors.black,
                     indicatorColor: Colors.black38,
                     tabs: [
-                     Text(title[0]),
+                      Text(title[0]),
                       Text(title[1]),
                       Text(title[2]),
                       Text(title[3]),
