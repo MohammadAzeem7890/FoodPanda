@@ -10,8 +10,10 @@ class Network{
     final products = Dio();
     try{
       final response = await products.get(baseUrl + "getproducts");
-      //print(response.data);
-      print(ProductModel.fromJson(response.data).itemDetails);
+      print(response.data);
+      return response.data;
+      //print(ProductModel.fromJson(response.data).itemDetails[1].products[1].price);
+      //print(ProductModel.fromJson(response.data));
 
     }
     catch(error){

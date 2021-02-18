@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/Controller/Network.dart';
+import 'package:foodpanda/Model/ProductModel.dart';
 import 'package:foodpanda/View/components/DealsMenu.dart';
 import 'package:foodpanda/View/components/RollsMenu.dart';
 import 'package:foodpanda/View/components/appBar.dart';
@@ -10,13 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  Future<ProductModel> categoryList;
+  int productItemIndex = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Network.getProducts();
+    categoryList = Network.getProducts();
   }
 
   final title = [
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           child: PrimaryAppBar(),
         ),
         body: DefaultTabController(
-          length: title.length,
+          length: 1,
           child: Column(
             children: <Widget>[
               Container(
@@ -49,12 +51,12 @@ class _HomePageState extends State<HomePage> {
                 //constraints: BoxConstraints(maxHeight: 150),
                 decoration: new BoxDecoration(
                   boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 3,
-                    offset: Offset(0, 2), // changes position of shadow
-                  ),
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 3,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
                   ],
                 ),
                 child: Material(
@@ -64,16 +66,24 @@ class _HomePageState extends State<HomePage> {
                     labelColor: Colors.black,
                     indicatorColor: Colors.black38,
                     tabs: [
-                      Text(title[0]),
-                      Text(title[1]),
-                      Text(title[2]),
-                      Text(title[3]),
-                      Text(title[4]),
-                      Text(title[5]),
-                      Text(title[6]),
-                      Text(title[7]),
-                      Text(title[8]),
-                      Text(title[9]),
+                      FutureBuilder<ProductModel>(
+                        future: categoryList,
+                        builder:
+                            (context, AsyncSnapshot<ProductModel> snapshot) {
+                          productItemIndex = snapshot.data.itemDetails.length;
+                          if (!snapshot.hasData) {
+                            return LinearProgressIndicator();
+                          } else {
+                            return ListView.builder(
+                              itemCount: snapshot.data.itemDetails.length == null ? Center(child: CircularProgressIndicator(),): snapshot.data.itemDetails.length,
+                              itemBuilder: (context, index) {
+                                return Text(snapshot
+                                    .data.itemDetails[index].categoryName);
+                              },
+                            );
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -81,16 +91,11 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
+                    ListView.builder(
+                        itemCount: productItemIndex,
+                        itemBuilder: (context, index) {
+                          return RollsMenu();
+                        }),
                   ],
                 ),
               )
