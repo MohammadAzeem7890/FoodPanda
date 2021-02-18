@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/HomePage.dart';
 
@@ -24,6 +25,7 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     double headerHeight = 45;
@@ -44,12 +46,9 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
                         alignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Please Select Delivery Area"),
-                          Radio(groupValue: 1, value: selectedArea, onChanged: (val){
-                            if(selectedArea != 0){
-                              setState(() {
-                                selectedArea = val;
-                              });
-                            }
+                          Radio(
+                            activeColor: Colors.green,
+                            groupValue: 1, value: 1, onChanged: (val){
                           },)
                         ],
                       ),
@@ -61,6 +60,7 @@ class _DeliveryAreaListState extends State<DeliveryAreaList> {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage())),
                       child: Container(
                         height: MediaQuery.of(context).size.height - headerHeight,
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: ListView.separated(
                           shrinkWrap: true,
                             itemBuilder: (context, index){
