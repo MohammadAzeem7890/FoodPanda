@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/View/Design/HomePage.dart';
 import 'package:foodpanda/View/components/CheckoutScreenSheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutScreen extends StatefulWidget {
   @override
@@ -182,7 +183,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             child: IconButton(
                                               icon: Icon(Icons.maximize_sharp),
                                               color: Colors.black,
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                SharedPreferences prefs = await SharedPreferences.getInstance();
                                                 setState(() {
                                                   subtotalPrice =
                                                       subtotalPrice == 0
@@ -201,6 +203,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                           gstPrice +
                                                           deliveryCharges;
                                                 });
+
                                               },
                                             ),
                                           ),

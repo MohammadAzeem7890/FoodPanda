@@ -113,6 +113,9 @@ class Network{
       print(jsonDecode(response.body));
       print('dat');
     }
+    else{
+      print("Could not add orders");
+    }
   }
 
 

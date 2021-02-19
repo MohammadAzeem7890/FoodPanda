@@ -29,6 +29,7 @@ class AddOrdersModel {
       this.orderStatus,
       this.metaData,
       this.shopId});
+
   AddOrdersModel.fromJson(Map<String, dynamic> json) {
     this.deliveryZoneId = json['delivery_zone_id'];
     this.couponId = json['coupon_id'];

@@ -206,12 +206,16 @@ class _CheckOutFormState extends State<CheckOutForm> {
                       title: "Confirm Order",
                       title1: "Total: Rs. 0000",
                       onPressed: () async {
+                        SharedPreferences pref =
+                        await SharedPreferences.getInstance();
                         Network.signUp(AddOrdersModel(deliveryZoneId: 1, couponId: 1, firstName: firstName.text, lastName: lastName.text, email: email.text, address: address.text,
                         contactNumber: mobileNumber.text, orderInstructions: otherInstructions.text, grandTotal: 300.toString(), couponDiscount: 26.toString(), deliveryCharges: 50,
                           orderStatus: "true", metaData: data.toString(), shopId: 2,
                         ));
-                        SharedPreferences pref =
-                            await SharedPreferences.getInstance();
+                        Network.addOrders(AddOrdersModel(deliveryZoneId: 1, couponId: 1, firstName: firstName.text, lastName: lastName.text, email: email.text, address: address.text,
+                          contactNumber: mobileNumber.text, orderInstructions: otherInstructions.text, grandTotal: 300.toString(), couponDiscount: 26.toString(), deliveryCharges: 50,
+                          orderStatus: "true", metaData: data.toString(), shopId: 2,
+                        ));
                         pref.setString("firstName", firstName.text);
                         pref.setString("lastName", lastName.text);
                         pref.setString("email", email.text);

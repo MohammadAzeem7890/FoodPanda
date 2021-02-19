@@ -11,14 +11,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<ProductModel> categoryList;
+  Future<ItemDetails> categoryList;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    categoryList = Network.getProductCategories();
-  }
+
+  List<Widget> titles;
 
   final title = [
     "Rolls",
@@ -30,8 +26,26 @@ class _HomePageState extends State<HomePage> {
     "Mocktails & Shakes",
     "Deals",
     "Kabab",
+    "Poka",
+    "Fast Food",
+    "Mocktails & Shakes",
+    "Deals",
+    "Kabab",
     "Poka"
   ];
+
+  List<Widget> tabs = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    categoryList = Network.getProductCategoryDetails();
+    categoryList.then((value) {
+      tabs.add(Text(value.categoryName[0]));
+      tabs.add(Text(value.categoryName[1]));tabs.add(Text(value.categoryName[2]));tabs.add(Text(value.categoryName[3]));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           child: PrimaryAppBar(),
         ),
         body: DefaultTabController(
-          length: title.length,
+          length: tabs.length,
           child: Column(
             children: <Widget>[
               Container(
@@ -64,30 +78,13 @@ class _HomePageState extends State<HomePage> {
                     isScrollable: true,
                     labelColor: Colors.black,
                     indicatorColor: Colors.black38,
-                    tabs: [
-                      Text(title[0]),
-                      Text(title[1]),
-                      Text(title[2]),
-                      Text(title[3]),
-                      Text(title[4]),
-                      Text(title[5]),
-                      Text(title[6]),
-                      Text(title[7]),
-                      Text(title[8]),
-                      Text(title[9]),
-                    ],
+                    tabs: tabs,
                   ),
                 ),
               ),
               Expanded(
                 child: TabBarView(
                   children: [
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
                     RollsMenu(),
                     DealsMenu(),
                     RollsMenu(),
