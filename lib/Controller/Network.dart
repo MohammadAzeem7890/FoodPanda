@@ -6,11 +6,24 @@ import 'package:foodpanda/Model/ProductModel.dart';
 const baseUrl = "http://cartelapi.textiledigitizing.com/api/";
 class Network{
 
-  static Future<ProductModel> getProducts()async{
-    final products = Dio();
+
+  static Future<ItemDetails> getProductCategoryDetails() async{
+    final productDetails = Dio();
     try{
-      final response = await products.get(baseUrl + "getproducts");
+      final response = await productDetails.get(baseUrl + "getproducts");
+      return ProductModel.fromJson(response.data).itemDetails[1];
       print(response.data);
+    }
+    catch(error){
+      print(error);
+    }
+  }
+
+  static Future<ProductModel> getProductCategories()async{
+    final productCategory = Dio();
+    try{
+      final response = await productCategory.get(baseUrl + "getproducts");
+      //print(response.data);
       return response.data;
       //print(ProductModel.fromJson(response.data).itemDetails[1].products[1].price);
       //print(ProductModel.fromJson(response.data));

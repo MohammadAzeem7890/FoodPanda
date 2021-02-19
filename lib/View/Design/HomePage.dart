@@ -12,13 +12,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<ProductModel> categoryList;
-  int productItemIndex = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    categoryList = Network.getProducts();
+    categoryList = Network.getProductCategories();
   }
 
   final title = [
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           child: PrimaryAppBar(),
         ),
         body: DefaultTabController(
-          length: 1,
+          length: title.length,
           child: Column(
             children: <Widget>[
               Container(
@@ -66,24 +65,16 @@ class _HomePageState extends State<HomePage> {
                     labelColor: Colors.black,
                     indicatorColor: Colors.black38,
                     tabs: [
-                      FutureBuilder<ProductModel>(
-                        future: categoryList,
-                        builder:
-                            (context, AsyncSnapshot<ProductModel> snapshot) {
-                          productItemIndex = snapshot.data.itemDetails.length;
-                          if (!snapshot.hasData) {
-                            return LinearProgressIndicator();
-                          } else {
-                            return ListView.builder(
-                              itemCount: snapshot.data.itemDetails.length == null ? Center(child: CircularProgressIndicator(),): snapshot.data.itemDetails.length,
-                              itemBuilder: (context, index) {
-                                return Text(snapshot
-                                    .data.itemDetails[index].categoryName);
-                              },
-                            );
-                          }
-                        },
-                      ),
+                      Text(title[0]),
+                      Text(title[1]),
+                      Text(title[2]),
+                      Text(title[3]),
+                      Text(title[4]),
+                      Text(title[5]),
+                      Text(title[6]),
+                      Text(title[7]),
+                      Text(title[8]),
+                      Text(title[9]),
                     ],
                   ),
                 ),
@@ -91,11 +82,16 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    ListView.builder(
-                        itemCount: productItemIndex,
-                        itemBuilder: (context, index) {
-                          return RollsMenu();
-                        }),
+                    RollsMenu(),
+                   DealsMenu(),
+                    RollsMenu(),
+                    DealsMenu(),
+                    RollsMenu(),
+                    DealsMenu(),
+                    RollsMenu(),
+                    DealsMenu(),
+                    RollsMenu(),
+                    DealsMenu(),
                   ],
                 ),
               )
