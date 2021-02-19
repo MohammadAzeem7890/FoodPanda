@@ -14,7 +14,6 @@ class RollsMenu extends StatefulWidget {
 }
 
 class _RollsMenuState extends State<RollsMenu> {
-
   Future<ItemDetails> getItemDetails;
   @override
   void initState() {
@@ -22,6 +21,7 @@ class _RollsMenuState extends State<RollsMenu> {
     super.initState();
     getItemDetails = Network.getProductCategoryDetails();
   }
+
   @override
   Widget build(BuildContext context) {
     var orienation = MediaQuery.of(context).orientation;
@@ -32,31 +32,39 @@ class _RollsMenuState extends State<RollsMenu> {
             child: Container(
               child: FutureBuilder<ItemDetails>(
                 future: getItemDetails,
-                builder: (context, AsyncSnapshot<ItemDetails> snapshot){
-                  if(!snapshot.hasData){
-                    return Center(child: CircularProgressIndicator(),);
-                  }
-                  else{
+                builder: (context, AsyncSnapshot<ItemDetails> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
                     return GridView.count(
-                      crossAxisCount: orienation == Orientation.landscape? 3: 2,
-                      childAspectRatio: orienation == Orientation.portrait? MediaQuery.of(context).size.width / 400:
-                      MediaQuery.of(context).size.width/730,
-                      children: List.generate(snapshot.data.products.length, (index) {
+                      crossAxisCount:
+                          orienation == Orientation.landscape ? 3 : 2,
+                      childAspectRatio: orienation == Orientation.portrait
+                          ? MediaQuery.of(context).size.width / 400
+                          : MediaQuery.of(context).size.width / 730,
+                      children:
+                          List.generate(snapshot.data.products.length, (index) {
                         // List<Products> item = snapshot.data.products;
                         return Container(
                           width: MediaQuery.of(context).size.width,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckOutScreen()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CheckOutScreen()));
                             },
                             child: ItemCard(
                               imageName: 'assets/images/Item.png',
                               fit: BoxFit.fitWidth,
-                              cardTitle: snapshot.data.products[index].itemTitle,
+                              cardTitle:
+                                  snapshot.data.products[index].itemTitle,
                               cardDescription:
-                              snapshot.data.products[index].itemDescription,
-                              oldPrice: int.parse(snapshot.data.products[index].oldPrice),
-                              newPrice: int.parse(snapshot.data.products[index].price),
+                                  snapshot.data.products[index].itemDescription,
+                              oldPrice: int.parse(
+                                  snapshot.data.products[index].oldPrice),
+                              newPrice: int.parse(
+                                  snapshot.data.products[index].price),
                             ),
                           ),
                         );

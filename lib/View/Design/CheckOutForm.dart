@@ -1,3 +1,6 @@
+import 'package:foodpanda/Controller/Network.dart';
+import 'package:foodpanda/Model/AddOrderModel.dart';
+import 'package:foodpanda/View/components/CheckoutScreenSheet.dart';
 import 'package:foodpanda/View/components/DeliveryZoneDropdown.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,12 @@ class CheckOutForm extends StatefulWidget {
 }
 
 class _CheckOutFormState extends State<CheckOutForm> {
+
+  List data = [
+    "Name", "Last Name", "Email", "Password",
+        "Name", "Last Name", "Email", "Password"
+  ];
+
   TextEditingController firstName = new TextEditingController();
   TextEditingController lastName = new TextEditingController();
   TextEditingController email = new TextEditingController();
@@ -79,7 +88,8 @@ class _CheckOutFormState extends State<CheckOutForm> {
                         .minLength(
                             10,
                             "First Name should be maximum 10 "
-                            "letters longs").build(),
+                            "letters longs")
+                        .build(),
                   ),
                   PrimaryLabel(
                     label: "Last Name",
@@ -91,7 +101,8 @@ class _CheckOutFormState extends State<CheckOutForm> {
                         .required("Last Name is Required")
                         .minLength(
                             3, "First Name must be alteast 3 letters long")
-                        .maxLength(10, "First Name should be maximum 10 ").build(),
+                        .maxLength(10, "First Name should be maximum 10 ")
+                        .build(),
                   ),
                   PrimaryLabel(
                     label: "Email",
@@ -101,13 +112,13 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     placeholder: "Please Enter Email",
                     validator: ValidationBuilder()
                         .required("Email is required")
-                        .minLength(
-                            3, "Email must be alteast 3 letters long")
+                        .minLength(3, "Email must be alteast 3 letters long")
                         .maxLength(
                             10,
                             "Email"
                             "should be maximum 10 ")
-                        .email("Please Enter Valid Email").build(),
+                        .email("Please Enter Valid Email")
+                        .build(),
                   ),
                   PrimaryLabel(
                     label: "Mobile Number",
@@ -117,7 +128,8 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     placeholder: "03XXXXXXXXX",
                     validator: ValidationBuilder()
                         .required("Mobile Number is required")
-                        .phone("Please Enter a Valid Phone Number").build(),
+                        .phone("Please Enter a Valid Phone Number")
+                        .build(),
                   ),
                   PrimaryLabel(
                     label: "Area",
@@ -131,8 +143,8 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     placeholder: "Please Enter Street Address",
                     validator: ValidationBuilder()
                         .required("Address is required")
-                        .minLength(
-                            7, "Address must be alteast 3 letters long").build(),
+                        .minLength(7, "Address must be alteast 3 letters long")
+                        .build(),
                   ),
                   PrimaryLabel(
                     label: "Order Instructions/ Note to rider",
@@ -194,13 +206,19 @@ class _CheckOutFormState extends State<CheckOutForm> {
                       title: "Confirm Order",
                       title1: "Total: Rs. 0000",
                       onPressed: () async {
-                        SharedPreferences pref = await SharedPreferences.getInstance();
+                        Network.signUp(AddOrdersModel(deliveryZoneId: 1, couponId: 1, firstName: firstName.text, lastName: lastName.text, email: email.text, address: address.text,
+                        contactNumber: mobileNumber.text, orderInstructions: otherInstructions.text, grandTotal: 300.toString(), couponDiscount: 26.toString(), deliveryCharges: 50,
+                          orderStatus: "true", metaData: data.toString(), shopId: 2,
+                        ));
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
                         pref.setString("firstName", firstName.text);
                         pref.setString("lastName", lastName.text);
                         pref.setString("email", email.text);
                         pref.setString("mobileNumber", mobileNumber.text);
                         pref.setString("address", address.text);
-                        pref.setString("otherInstructions", otherInstructions.text);
+                        pref.setString(
+                            "otherInstructions", otherInstructions.text);
                         showDialog(
                             barrierDismissible: false,
                             context: context,

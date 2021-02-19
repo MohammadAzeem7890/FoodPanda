@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 child: TabBarView(
                   children: [
                     RollsMenu(),
-                   DealsMenu(),
+                    DealsMenu(),
                     RollsMenu(),
                     DealsMenu(),
                     RollsMenu(),
