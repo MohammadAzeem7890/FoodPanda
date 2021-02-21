@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/Controller/Network.dart';
+import 'package:foodpanda/Model/DeliveryZoneModel.dart';
 import 'package:foodpanda/Model/ProductModel.dart';
 import 'package:foodpanda/View/components/DealsMenu.dart';
 import 'package:foodpanda/View/components/RollsMenu.dart';
@@ -11,39 +12,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<ItemDetails> categoryList;
+  TabController controller;
+  Future<ProductModel> productModel;
+  List<Products> listOfProducts;
+  int selectedIndex = 0;
 
-
-  List<Widget> titles;
-
-  final title = [
-    "Rolls",
-    "Pasta",
-    "Burger",
-    "Pizza",
-    "Chinses",
-    "Fast Food",
-    "Mocktails & Shakes",
-    "Deals",
-    "Kabab",
-    "Poka",
-    "Fast Food",
-    "Mocktails & Shakes",
-    "Deals",
-    "Kabab",
-    "Poka"
-  ];
-
-  List<Widget> tabs = [];
+  int tabLength;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    categoryList = Network.getProductCategoryDetails();
-    categoryList.then((value) {
-      tabs.add(Text(value.categoryName[0]));
-      tabs.add(Text(value.categoryName[1]));tabs.add(Text(value.categoryName[2]));tabs.add(Text(value.categoryName[3]));
+    productModel = Network.getProductCategories();
+    productModel.then((value) {
+      value.itemDetails.forEach((element) {
+        listOfProducts = element.products;
+      });
+      tabLength = value.itemDetails.length;
+      controller = TabController(length: tabLength);
     });
   }
 
@@ -51,49 +36,89 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: PrimaryAppBar(),
-        ),
-        body: DefaultTabController(
-          length: tabs.length,
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 40,
-                //constraints: BoxConstraints(maxHeight: 150),
-                decoration: new BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 3,
-                      offset: Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.white,
-                  child: TabBar(
-                    isScrollable: true,
-                    labelColor: Colors.black,
-                    indicatorColor: Colors.black38,
-                    tabs: tabs,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    RollsMenu(),
-                    DealsMenu(),
-                    RollsMenu(),
-                    DealsMenu(),
-                  ],
-                ),
-              )
-            ],
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          title: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Image.asset(
+              'assets/images/HomeHeader.png',
+              fit: BoxFit.cover,
+              height: 55,
+            ),
           ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              color: Colors.white,
+              child: FutureBuilder<ProductModel>(
+                future: productModel,
+                builder: (context, AsyncSnapshot<ProductModel> snapshot) {
+                  if (snapshot.hasData) {
+                    List<Widget> tabs = new List<Widget>();
+                    for (int index = 0;
+                        index < snapshot.data.itemDetails.length;
+                        index++) {
+                      tabs.add(Tab(
+                        child:
+                            Text(snapshot.data.itemDetails[index].categoryName),
+                      ));
+                    }
+                    return DefaultTabController(
+                      length: tabLength,
+                      child: TabBar(
+                        labelColor: Colors.black45,
+                        indicatorColor: Colors.black45,
+                        indicator:
+                            BoxDecoration(color: Colors.lightBlue.shade50),
+                        onTap: (index) {
+                          setState(() {
+                            DefaultTabController.of(context).addListener(() {
+                              setState(() {
+                                selectedIndex =
+                                    DefaultTabController.of(context).index;
+                              });
+                            });
+                          });
+                        },
+                        controller: controller,
+                        isScrollable: true,
+                        tabs: tabs,
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
+        body: FutureBuilder<ProductModel>(
+          future: productModel,
+          builder: (context, AsyncSnapshot<ProductModel> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return DefaultTabController(
+                length: tabLength,
+                child: TabBarView(
+                  controller: controller,
+                  children: List<Widget>.generate(
+                      snapshot.data.itemDetails.length, (index) {
+                    return RollsMenu.product(
+                        products: snapshot.data.itemDetails[index].products);
+                  }),
+                ),
+              );
+            }
+          },
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/Controller/Network.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -27,7 +28,9 @@ class ItemCard extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              child: Image.asset(imageName, fit: fit),
+              child: FadeInImage.assetNetwork(
+                image: baseUrl + imageName,
+                placeholder: "assets/images/Item.png", fit: fit,),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5, right: 15),

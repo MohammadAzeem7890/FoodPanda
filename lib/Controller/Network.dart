@@ -9,12 +9,11 @@ import 'package:http/http.dart' as http;
 const baseUrl = "http://cartelapi.textiledigitizing.com/api/";
 class Network{
 
-
   static Future<ItemDetails> getProductCategoryDetails() async{
     final productDetails = Dio();
     try{
       final response = await productDetails.get(baseUrl + "getproducts");
-      return ProductModel.fromJson(response.data).itemDetails[1];
+      return ProductModel.fromJson(response.data).itemDetails[0];
       print(response.data);
     }
     catch(error){
@@ -26,8 +25,8 @@ class Network{
     final productCategory = Dio();
     try{
       final response = await productCategory.get(baseUrl + "getproducts");
-      //print(response.data);
-      return response.data;
+      print(response.data);
+      return ProductModel.fromJson(response.data);
       //print(ProductModel.fromJson(response.data).itemDetails[1].products[1].price);
       //print(ProductModel.fromJson(response.data));
 

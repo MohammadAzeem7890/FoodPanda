@@ -21,10 +21,6 @@ class CheckOutForm extends StatefulWidget {
 
 class _CheckOutFormState extends State<CheckOutForm> {
 
-  List data = [
-    "Name", "Last Name", "Email", "Password",
-        "Name", "Last Name", "Email", "Password"
-  ];
 
   TextEditingController firstName = new TextEditingController();
   TextEditingController lastName = new TextEditingController();
@@ -208,14 +204,6 @@ class _CheckOutFormState extends State<CheckOutForm> {
                       onPressed: () async {
                         SharedPreferences pref =
                         await SharedPreferences.getInstance();
-                        Network.signUp(AddOrdersModel(deliveryZoneId: 1, couponId: 1, firstName: firstName.text, lastName: lastName.text, email: email.text, address: address.text,
-                        contactNumber: mobileNumber.text, orderInstructions: otherInstructions.text, grandTotal: 300.toString(), couponDiscount: 26.toString(), deliveryCharges: 50,
-                          orderStatus: "true", metaData: data.toString(), shopId: 2,
-                        ));
-                        Network.addOrders(AddOrdersModel(deliveryZoneId: 1, couponId: 1, firstName: firstName.text, lastName: lastName.text, email: email.text, address: address.text,
-                          contactNumber: mobileNumber.text, orderInstructions: otherInstructions.text, grandTotal: 300.toString(), couponDiscount: 26.toString(), deliveryCharges: 50,
-                          orderStatus: "true", metaData: data.toString(), shopId: 2,
-                        ));
                         pref.setString("firstName", firstName.text);
                         pref.setString("lastName", lastName.text);
                         pref.setString("email", email.text);

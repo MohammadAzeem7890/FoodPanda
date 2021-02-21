@@ -6,14 +6,14 @@ import 'PrimaryLabel.dart';
 
 class CheckoutScreenSheet extends StatelessWidget {
 
-  double subtotal;
-  double gst;
-  double deliveryCharges;
-  double totalIncGst;
+  double subtotal = 0;
+  double gst = 0;
+  int deliveryCharges = 20;
+  double total = 0;
 
   double height;
   double width;
-  CheckoutScreenSheet({this.height, this.width, this.subtotal, this.gst, this.deliveryCharges, this.totalIncGst});
+  CheckoutScreenSheet({this.height, this.width, @required this.subtotal, @required this.gst, @required this.total});
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
@@ -33,10 +33,10 @@ class CheckoutScreenSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     child: deliveryArea(orientation),
                   ),
-                  totalBill("subtotal", subtotal.toString()),
-                  totalBill("GST(16%)".toUpperCase(), gst.toString()),
-                  totalBill("Delivery Charges", deliveryCharges.toString()),
-                  totalIncludingGst(totalIncGst),
+                  totalBill("subtotal", "${subtotal}"),
+                  totalBill("GST(16%)".toUpperCase(), "${gst}"),
+                  totalBill("Delivery Charges", "${deliveryCharges}"),
+                  totalIncludingGst("${total}"),
                   checkOutButton(context),
                 ],
               ),
@@ -59,10 +59,10 @@ class CheckoutScreenSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: deliveryArea(orientation),
                     ),
-                    totalBill("subtotal", subtotal.toString()),
-                    totalBill("GST(16%)".toUpperCase(), gst.toString()),
-                    totalBill("Delivery Charges", deliveryCharges.toString()),
-                    totalIncludingGst(totalIncGst),
+                    totalBill("subtotal", "${subtotal}"),
+                    totalBill("GST(16%)".toUpperCase(), "${gst}"),
+                    totalBill("Delivery Charges", "${deliveryCharges}"),
+                    totalIncludingGst("${total}"),
                     checkOutButton(context),
                   ],
                 ),
@@ -114,7 +114,7 @@ Widget totalBill(label, value) {
   );
 }
 
-Widget totalIncludingGst(double totalIncGst) {
+Widget totalIncludingGst(totalIncGst) {
   return Padding(
     padding: const EdgeInsets.only(top: 20),
     child: Row(

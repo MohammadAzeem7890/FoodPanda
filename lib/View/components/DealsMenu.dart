@@ -21,7 +21,7 @@ class _DealsMenuState extends State<DealsMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getItemDetails = Network.getProductCategoryDetails();
+    //getItemDetails = Network.getProductCategoryDetails();
   }
   
   @override

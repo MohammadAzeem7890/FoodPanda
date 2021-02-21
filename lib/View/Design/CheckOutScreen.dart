@@ -9,12 +9,16 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  double subtotalPrice = 0;
-  double gstPrice = 0;
-  double deliveryCharges = 30;
-  double totalChargesIncGst = 0;
-  double itemPrice = 253;
-  double itemCount = 0;
+
+  double subtotal = 0;
+  double gst = 0;
+  double deliveryCharges = 20;
+  double total = 0;
+  int itemPrice = 245;
+  int itemCount = 1;
+  double rateOfGST = 16;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         horizontal: 10),
                                     child: Container(
                                       width: MediaQuery.of(context).size.width -
-                                          230,
+                                          240,
                                       height: 47,
                                       child: Row(
                                         mainAxisAlignment:
@@ -73,28 +77,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               ),
                                               onPressed: () {
                                                 setState(() {
-                                                  subtotalPrice =
-                                                      subtotalPrice == 0
-                                                          ? 0
-                                                          : subtotalPrice -
-                                                              itemPrice;
-                                                  gstPrice = subtotalPrice == 0
-                                                      ? 0
-                                                      : subtotalPrice -
-                                                          (16 / 100);
-                                                  itemCount = itemCount == 0
-                                                      ? 0
-                                                      : itemCount - 1;
-                                                  totalChargesIncGst =
-                                                      subtotalPrice +
-                                                          gstPrice +
-                                                          deliveryCharges;
+                                                  itemCount == 0 ? 0 : itemCount = itemCount - 1;
+                                                  subtotal = subtotal == 0 ? 0 : subtotal = subtotal + itemPrice;
+                                                  gst = gst == 0 ? 0 : (subtotal * rateOfGST)/100;
+                                                  total = subtotal + gst + deliveryCharges;
                                                 });
                                               },
                                             ),
                                           ),
                                           Text(
-                                            itemCount.toString(),
+                                            "${itemCount}",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20),
@@ -106,15 +98,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             ),
                                             onPressed: () {
                                               setState(() {
-                                                subtotalPrice =
-                                                    subtotalPrice + itemPrice;
-                                                gstPrice =
-                                                    subtotalPrice - (16 / 100);
                                                 itemCount = itemCount + 1;
-                                                totalChargesIncGst =
-                                                    subtotalPrice +
-                                                        gstPrice +
-                                                        deliveryCharges;
+                                                subtotal =  subtotal == 0 ? subtotal + itemPrice : subtotal + itemPrice;
+                                                gst =  ((subtotal * rateOfGST)/100) ;
+                                                total = subtotal + gst + deliveryCharges;
                                               });
                                             },
                                           )
@@ -122,7 +109,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                   ),
-                                  Text("Rs." + (itemPrice).toString()),
+                                  Text("Rs.${itemPrice}"),
                                 ],
                               ),
                             );
@@ -139,11 +126,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   Expanded(
                       child: CheckoutScreenSheet(
-                    subtotal: (subtotalPrice),
-                    gst: gstPrice,
-                    deliveryCharges: deliveryCharges,
-                    totalIncGst: totalChargesIncGst,
-                    height: checkoutHeight,
+                        gst: gst,
+                        subtotal: subtotal,
+                        total: total,
                   )),
                 ],
               )
@@ -184,31 +169,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               icon: Icon(Icons.maximize_sharp),
                                               color: Colors.black,
                                               onPressed: () async {
+                                                itemCount == 0 ? 0 : itemCount = itemCount - 1;
+                                                subtotal = subtotal == 0 ? 0 : subtotal = subtotal + itemPrice;
+                                                gst = gst == 0 ? 0 : (subtotal * rateOfGST)/100;
+                                                total = subtotal + gst + deliveryCharges;
                                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                                setState(() {
-                                                  subtotalPrice =
-                                                      subtotalPrice == 0
-                                                          ? 0
-                                                          : subtotalPrice -
-                                                              itemPrice;
-                                                  itemCount = itemCount == 0
-                                                      ? 0
-                                                      : itemCount - 1;
-                                                  gstPrice = subtotalPrice == 0
-                                                      ? 0
-                                                      : subtotalPrice -
-                                                          (16 / 100);
-                                                  totalChargesIncGst =
-                                                      subtotalPrice +
-                                                          gstPrice +
-                                                          deliveryCharges;
-                                                });
-
                                               },
                                             ),
                                           ),
                                           Text(
-                                            itemCount.toString(),
+                                            "${itemCount}",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20),
@@ -219,25 +189,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               color: Colors.black,
                                             ),
                                             onPressed: () {
-                                              setState(() {
-                                                subtotalPrice =
-                                                    subtotalPrice + itemPrice;
-                                                print(subtotalPrice);
-                                                gstPrice =
-                                                    subtotalPrice - (16 / 100);
-                                                itemCount = itemCount + 1;
-                                                totalChargesIncGst =
-                                                    subtotalPrice +
-                                                        gstPrice +
-                                                        deliveryCharges;
-                                              });
+                                              itemCount = itemCount + 1;
+                                              subtotal =  subtotal == 0 ? subtotal + itemPrice : subtotal + itemPrice;
+                                              gst =  ((subtotal * rateOfGST)/100) ;
+                                              total = subtotal + gst + deliveryCharges;
                                             },
                                           )
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Text("Rs. $itemPrice".toString()),
+                                  Text("Rs.${itemPrice}"),
                                 ],
                               ),
                             );
@@ -254,10 +216,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   Expanded(
                     child: CheckoutScreenSheet(
-                      subtotal: subtotalPrice,
-                      gst: gstPrice,
-                      deliveryCharges: deliveryCharges,
-                      totalIncGst: totalChargesIncGst,
+                      total: total,
+                      subtotal: subtotal,
+                      gst: gst,
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width - 100,
                     ),
