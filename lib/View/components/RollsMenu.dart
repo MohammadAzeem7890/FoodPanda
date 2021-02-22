@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodpanda/Model/ProductModel.dart';
 import 'package:foodpanda/View/Design/CheckOutScreen.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'BottomSheet.dart';
 
@@ -49,7 +50,14 @@ class _RollsMenuState extends State<RollsMenu> {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString("shopId", products[index].shopId);
+                        prefs.setString("itemTitle", products[index].itemTitle);
+                        prefs.setString("itemPrice", products[index].price);
+                        prefs.setString("categoryId", products[index].categoryId);
+                        prefs.setInt("itemId", products[index].itemId);
+
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CheckOutScreen()));
                       },

@@ -97,7 +97,7 @@ class _CheckOutFormState extends State<CheckOutForm> {
                     validator: ValidationBuilder()
                         .required("Last Name is Required")
                         .minLength(
-                            3, "First Name must be alteast 3 letters long")
+                            3, "Last Name must be alteast 3 letters long")
                         .maxLength(10, "First Name should be maximum 10 ")
                         .build(),
                   ),

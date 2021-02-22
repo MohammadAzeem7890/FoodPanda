@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/Controller/Network.dart';
 import 'package:foodpanda/Model/DeliveryZoneModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryZoneDropdown extends StatefulWidget {
   @override
@@ -53,10 +54,12 @@ class _DeliveryZoneDropdownState extends State<DeliveryZoneDropdown> {
                 underline: Container(
                   color: Colors.transparent,
                 ),
-                onChanged: (DeliveryZones zone) {
+                onChanged: (DeliveryZones zone) async {
                   setState(() {
                     selectedZone = zone;
                   });
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setString("selectedZone", selectedZone.toString());
                 },
                 items: snapsot.data.deliveryZones.map((DeliveryZones zone) {
                   return DropdownMenuItem<DeliveryZones>(

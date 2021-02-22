@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "280946602255",
+    "project_id": "cartleecommerce",
+    "storage_bucket": "cartleecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280946602255:android:d724d274be2e4c21498e7a",
+        "android_client_info": {
+          "package_name": "com.example.foodpanda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280946602255-arsko0vc4ijjr3sldapoh0epi94d1dh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUo9sELJoVGrvzSTmUgYRJV4HxcbCSmfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280946602255-arsko0vc4ijjr3sldapoh0epi94d1dh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

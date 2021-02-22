@@ -35,8 +35,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         });
       });
     });
-
-
   }
 
   @override
@@ -46,19 +44,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Image.asset(
-              'assets/images/HomeHeader.png',
-              fit: BoxFit.cover,
-              height: 55,
-            ),
+          toolbarHeight: 100,
+          title: Image.asset(
+            'assets/images/HomeHeader.png',
+            fit: BoxFit.cover,
+            height: 50,
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(50.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 60,
+              height: 40,
               color: Colors.white,
               child: FutureBuilder<ProductModel>(
                 future: productModel,
@@ -83,8 +79,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           setState(() {
                             selectedIndex = _tabController.index;
                           });
-                          print("Selected Index: " +
-                              _tabController.index.toString());
                         });
                       },
                       isScrollable: true,

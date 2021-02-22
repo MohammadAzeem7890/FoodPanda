@@ -39,7 +39,7 @@ class PrimaryTextField extends StatelessWidget {
                 ),
               focusedBorder: new OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: Colors.black, width: 1),
+                borderSide: BorderSide(color: Colors.green, width: 1),
               )
             ),
           ),
