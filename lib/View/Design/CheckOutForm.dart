@@ -46,12 +46,13 @@ class _CheckOutFormState extends State<CheckOutForm> {
         child: PrimaryAppBar(),
       ),
       body: Stack(
+        fit: StackFit.loose,
         children: [
           Positioned(
             bottom: 100,
             right: 10,
             child: FloatingActionButton(
-                backgroundColor: Colors.blue[600],
+                backgroundColor: Colors.blue,
                 child: Icon(
                   Icons.add_shopping_cart_rounded,
                   color: Colors.white,
@@ -66,7 +67,7 @@ class _CheckOutFormState extends State<CheckOutForm> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 15),
+                        horizontal: 12),
                     child: Heading(
                       heading: "Checkout Form",
                     ),

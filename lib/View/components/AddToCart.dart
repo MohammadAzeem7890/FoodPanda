@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda/Model/ProductModel.dart';
 import 'package:foodpanda/View/components/Heading.dart';
 import 'package:foodpanda/View/components/PrimaryLabel.dart';
 import 'package:foodpanda/View/components/primaryTextField.dart';
 
 class AddToCart extends StatelessWidget {
+
+  Future<ProductModel> listOfProducts;
+
   @override
   Widget build(BuildContext context) {
     var orientation = MediaQuery.of(context).orientation;

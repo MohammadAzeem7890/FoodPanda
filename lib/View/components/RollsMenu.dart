@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/Controller/Network.dart';
 import 'package:foodpanda/Model/ProductModel.dart';
-import 'package:foodpanda/View/Design/CheckOutForm.dart';
 import 'package:foodpanda/View/Design/CheckOutScreen.dart';
 import 'package:foodpanda/View/components/ItemCard.dart';
-import 'package:foodpanda/View/components/primaryTextField.dart';
 
 import 'BottomSheet.dart';
 
@@ -29,6 +26,7 @@ class _RollsMenuState extends State<RollsMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
   }
 
   @override
@@ -57,7 +55,7 @@ class _RollsMenuState extends State<RollsMenu> {
                       },
                       child: ItemCard(
                         imageName: products[index].itemImagePath + products[index].itemImageName,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.fill,
                         cardTitle:
                         products[index].itemTitle,
                         cardDescription:

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryTextField extends StatelessWidget {
@@ -14,13 +15,19 @@ class PrimaryTextField extends StatelessWidget {
     return  Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Container(
-          height: 45,
+          height: 65,
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
             validator: validator,
             maxLines: maxLines,
             decoration: new InputDecoration(
-              contentPadding: const EdgeInsets.only(top: 8, left: 20),
+              errorBorder: new OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.5),
+              ),
+              focusedErrorBorder: new OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.5),
+              ),
+              contentPadding: const EdgeInsets.only(top: 10, left: 16, bottom: 10),
               hintText: placeholder,
                 hintStyle: TextStyle(
                   color: Colors.black54,

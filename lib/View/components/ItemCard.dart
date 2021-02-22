@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/Controller/Network.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -28,9 +29,12 @@ class ItemCard extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
+              height: 130,
               child: FadeInImage.assetNetwork(
-                image: baseUrl + imageName,
-                placeholder: "assets/images/Item.png", fit: fit,),
+                image: 'http://cartelapi.textiledigitizing.com/' + imageName,
+                placeholder: "assets/images/Item.png",
+                fit: fit,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5, right: 15),
@@ -68,17 +72,22 @@ class ItemCard extends StatelessWidget {
                           TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Container(
-                    height: 15,
-                    width: 15,
-                    color: Colors.black,
-                    child: Center(
-                        child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 16,
-                    )),
-                  )
+                  GestureDetector(
+                    onTap: (){
+                      print("Hello World");
+                    },
+                    child: Container(
+                      height: 19,
+                      width: 19,
+                      color: Colors.black,
+                      child: Center(
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                      )),
+                  ),
                 ],
               ),
             )

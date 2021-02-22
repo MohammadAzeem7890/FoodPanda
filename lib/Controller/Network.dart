@@ -25,7 +25,6 @@ class Network{
     final productCategory = Dio();
     try{
       final response = await productCategory.get(baseUrl + "getproducts");
-      print(response.data);
       return ProductModel.fromJson(response.data);
       //print(ProductModel.fromJson(response.data).itemDetails[1].products[1].price);
       //print(ProductModel.fromJson(response.data));
